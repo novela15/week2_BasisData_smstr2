@@ -1,0 +1,341 @@
+Microsoft Windows [Version 10.0.22631.4890]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\lenovo>CD C:\xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 9
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> USE PERPUSTAKAAN;
+Database changed
+MariaDB [PERPUSTAKAAN]> CREATE TABLE mahasiswa (
+    -> NPM char(5) NOT NULL PRIMARY KEY,
+    -> nama varchar(20) NOT NULL,
+    -> tempat_lahir varchar(20) NOT NULL,
+    -> tanggal_Lahir DATE NOT NULL,
+    -> no_hp varchar(25)
+    -> );
+Query OK, 0 rows affected (0.052 sec)
+
+MariaDB [PERPUSTAKAAN]> show tables;
++------------------------+
+| Tables_in_perpustakaan |
++------------------------+
+| mahasiswa              |
+| mahassiswa             |
++------------------------+
+2 rows in set (0.020 sec)
+
+MariaDB [PERPUSTAKAAN]> DESC mahasiswa;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| NPM           | char(5)     | NO   | PRI | NULL    |       |
+| nama          | varchar(20) | NO   |     | NULL    |       |
+| tempat_lahir  | varchar(20) | NO   |     | NULL    |       |
+| tanggal_Lahir | date        | NO   |     | NULL    |       |
+| no_hp         | varchar(25) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+5 rows in set (0.029 sec)
+
+MariaDB [PERPUSTAKAAN]> ALTER TABLE mahasiswa ADD jenis_kelamin enum('L','P');
+Query OK, 0 rows affected (0.054 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [PERPUSTAKAAN]> desc mahasiswa
+    -> ;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| NPM           | char(5)       | NO   | PRI | NULL    |       |
+| nama          | varchar(20)   | NO   |     | NULL    |       |
+| tempat_lahir  | varchar(20)   | NO   |     | NULL    |       |
+| tanggal_Lahir | date          | NO   |     | NULL    |       |
+| no_hp         | varchar(25)   | YES  |     | NULL    |       |
+| jenis_kelamin | enum('L','P') | YES  |     | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+6 rows in set (0.050 sec)
+
+MariaDB [PERPUSTAKAAN]> ALTER TABLE mahasiswa MODIFY COLUMN nama VARCHAR(50);
+Query OK, 0 rows affected (0.068 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [PERPUSTAKAAN]> desc mahasiswa;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| NPM           | char(5)       | NO   | PRI | NULL    |       |
+| nama          | varchar(50)   | YES  |     | NULL    |       |
+| tempat_lahir  | varchar(20)   | NO   |     | NULL    |       |
+| tanggal_Lahir | date          | NO   |     | NULL    |       |
+| no_hp         | varchar(25)   | YES  |     | NULL    |       |
+| jenis_kelamin | enum('L','P') | YES  |     | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+6 rows in set (0.054 sec)
+
+MariaDB [PERPUSTAKAAN]> exit
+Bye
+
+C:\xampp\mysql\bin>mysqldump -u root -p
+Usage: mysqldump [OPTIONS] database [tables]
+OR     mysqldump [OPTIONS] --databases DB1 [DB2 DB3...]
+OR     mysqldump [OPTIONS] --all-databases
+OR     mysqldump [OPTIONS] --system=[SYSTEMOPTIONS]]
+For more options, use mysqldump --help
+
+C:\xampp\mysql\bin>mysqldump -u root -p perpustakaan
+Enter password:
+-- MariaDB dump 10.19  Distrib 10.4.32-MariaDB, for Win64 (AMD64)
+--
+-- Host: localhost    Database: perpustakaan
+-- ------------------------------------------------------
+-- Server version       10.4.32-MariaDB
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `mahasiswa`
+--
+
+DROP TABLE IF EXISTS `mahasiswa`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mahasiswa` (
+  `NPM` char(5) NOT NULL,
+  `nama` varchar(50) DEFAULT NULL,
+  `tempat_lahir` varchar(20) NOT NULL,
+  `tanggal_Lahir` date NOT NULL,
+  `no_hp` varchar(25) DEFAULT NULL,
+  `jenis_kelamin` enum('L','P') DEFAULT NULL,
+  PRIMARY KEY (`NPM`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `mahasiswa`
+--
+
+LOCK TABLES `mahasiswa` WRITE;
+/*!40000 ALTER TABLE `mahasiswa` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mahasiswa` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `mahassiswa`
+--
+
+DROP TABLE IF EXISTS `mahassiswa`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mahassiswa` (
+  `NPM` char(5) NOT NULL,
+  `nama` varchar(20) NOT NULL,
+  `tempat_lahir` varchar(20) NOT NULL,
+  `tanggal_Lahir` date NOT NULL,
+  `no_hp` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`NPM`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `mahassiswa`
+--
+
+LOCK TABLES `mahassiswa` WRITE;
+/*!40000 ALTER TABLE `mahassiswa` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mahassiswa` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2025-02-21 13:36:00
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 11
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| perpustakaan       |
+| phpmyadmin         |
+| siperpus           |
+| test               |
++--------------------+
+7 rows in set (0.001 sec)
+
+MariaDB [(none)]> exit
+Bye
+
+C:\xampp\mysql\bin>mysqldump -u root -p perpustakaan > D:\perpustakaan_backup.sql
+Enter password:
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 13
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| perpustakaan       |
+| phpmyadmin         |
+| siperpus           |
+| test               |
++--------------------+
+7 rows in set (0.002 sec)
+
+MariaDB [(none)]> DROP DATABASE perpustakaan;
+Query OK, 2 rows affected (0.057 sec)
+
+MariaDB [(none)]> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| siperpus           |
+| test               |
++--------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [(none)]> Bye
+Ctrl-C -- exit!
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 18
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> CREATE DATABASE akademik;
+Query OK, 1 row affected (0.030 sec)
+
+MariaDB [akademik]> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| akademik           |
+| information_schema |
+| mahasiswa          |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| siperpus           |
+| test               |
++--------------------+
+8 rows in set (0.004 sec)
+
+MariaDB [(none)]> USE akademik;
+Database changed
+MariaDB [akademik]> CREATE TABLE mahasiswa (
+    -> NPM char(5) NOT NULL PRIMARY KEY,
+    -> nama varchar(20) NOT NULL,
+    -> tempat_lahir varchar(20) NOT NULL,
+    -> tanggal_Lahir DATE NOT NULL,
+    -> no_hp varchar(25)
+    -> );
+Query OK, 0 rows affected (0.058 sec)
+
+MariaDB [akademik]> CREATE TABLE dosen (
+    -> nama varchar(20) NOT NULL,
+    -> no_hp varchar(25)
+    -> );
+Query OK, 0 rows affected (0.047 sec)
+
+MariaDB [akademik]> CREATE TABLE matakuliah (
+    -> nama_dosen varchar(20) NOT NULL,
+    -> mata_kuliah varchar(20) NOT NULL,
+    -> jam varchar(25)
+    -> );
+Query OK, 0 rows affected (0.021 sec)
+
+MariaDB [akademik]> SHOW TABLES;
++--------------------+
+| Tables_in_akademik |
++--------------------+
+| dosen              |
+| mahasiswa          |
+| matakuliah         |
++--------------------+
+3 rows in set (0.028 sec)
+
+MariaDB [akademik]> DESC dosen;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| nama  | varchar(20) | NO   |     | NULL    |       |
+| no_hp | varchar(25) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.044 sec)
+
+MariaDB [akademik]> DESC mahasiswa;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| NPM           | char(5)     | NO   | PRI | NULL    |       |
+| nama          | varchar(20) | NO   |     | NULL    |       |
+| tempat_lahir  | varchar(20) | NO   |     | NULL    |       |
+| tanggal_Lahir | date        | NO   |     | NULL    |       |
+| no_hp         | varchar(25) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+5 rows in set (0.051 sec)
+
+MariaDB [akademik]> DESC matakuliah;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| nama_dosen  | varchar(20) | NO   |     | NULL    |       |
+| mata_kuliah | varchar(20) | NO   |     | NULL    |       |
+| jam         | varchar(25) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.043 sec)
+
+MariaDB [akademik]>
